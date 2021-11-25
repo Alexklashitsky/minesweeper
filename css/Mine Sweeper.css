@@ -1,0 +1,66 @@
+*{
+  margin-left: auto;
+  margin-right: auto;
+}
+table {
+     table-layout: fixed; 
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    background-color:#628C23
+  
+  }
+
+
+  
+td {
+    border: 1px solid black;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    text-overflow: ellipsis;
+    text-indent: 2;
+    height: 20px;
+  }
+
+.isMine
+
+{
+    /* background-color: brown; */
+
+  }
+
+
+  .invisible{
+    text-indent: -9999px
+  
+  }
+
+  .reset{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 25px;
+margin-left: auto;
+margin-right: auto;
+}
+.btn{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
+  
+}
+.timer{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.lives{
+  text-align: center;
+}
+.modal{
+  text-align: center;
+}
+.setemoji{
+  text-align: center;
+  font-size: xx-large;
+}

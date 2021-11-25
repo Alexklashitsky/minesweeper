@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mine Sweeper</title>
+    <link rel="stylesheet" href="css/Mine Sweeper.css">
+</head>
+
+<body onload="initGame()">
+    <div class="setemoji"></div>
+    <div class="timer">0:0:0.000</div>
+    <div class="lives">lives remain: <span></span></div>
+
+    <table class="game">
+        <tbody></tbody>
+    </table>
+    <div class="modal"></div>
+    <button class="reset" onclick="rest()">reset</button>
+    <div class="btn">
+        <button data-level="beginner" onclick="setLevel(this)">beginner</button>
+        <button data-level="advance" onclick="setLevel(this)">advance</button>
+        <button data-level="expert" onclick="setLevel(this)">expert</button>
+    </div>
+
+
+
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+
+</body>
+
+</html>
