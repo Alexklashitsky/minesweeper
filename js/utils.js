@@ -14,7 +14,6 @@ function createBoard(size) {
 
         }
     }
-    console.log(board[2][2]);
 
     // placeRandomMins(board, gLevel.MINES)
 

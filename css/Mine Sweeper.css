@@ -2,6 +2,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+body {
+ 
+  background-color: #cccccc;
+ }
 table {
      table-layout: fixed; 
     width: 400px;
@@ -22,10 +27,14 @@ td {
     height: 20px;
   }
 
+  td:hover{
+    background-color: khaki;
+  }
+
 .isMine
 
 {
-    /* background-color: brown; */
+    background-color: brown;
 
   }
 
@@ -41,13 +50,48 @@ td {
     margin-bottom: 25px;
 margin-left: auto;
 margin-right: auto;
+border-style:none;
+border-radius: 10%;
+
+
+}
+.middle{
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border-style:none
+
+
+}
+.first{
+  border-radius: 50%;
+  border-style:none
+}
+
+.last{
+  border-radius: 50%;
+  border-style:none
+
+
 }
 .btn{
+  border-style:none;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   position: relative;
-  
+  font-size: xx-large;
+padding: 50px;  
+}
+
+.first:hover{
+  background-color: #1D5902;
+}
+.middle:hover{
+  background-color: #1D5902;
+}
+.last:hover{
+  background-color: #1D5902;
 }
 .timer{
   margin-left: auto;
@@ -63,4 +107,7 @@ margin-right: auto;
 .setemoji{
   text-align: center;
   font-size: xx-large;
+}
+.best-time{
+  text-align: center;
 }
