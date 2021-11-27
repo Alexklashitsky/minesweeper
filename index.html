@@ -13,12 +13,28 @@
     <div class="setemoji"></div>
     <div class="timer">0:0:0.000</div>
     <div class="lives">lives remain: <span></span></div>
+    <div class="record-time">
+        <h2>Best time!</h2>
+        <ul>
+            <li class="beginner">beginner: <span>Let's Play!</span></li>
+            <li class="advance">advance: <span>Let's Play!</span></li>
+            <li class="expert">expert: <span>Let's Play!</span></li>
+        </ul>
+
+    </div>
 
     <table class="game">
         <tbody></tbody>
     </table>
     <div class="modal"></div>
     <button class="reset" onclick="rest()">reset</button>
+    <div onclick="hints()" class="hints">hints!
+        <ul>
+            <li class="first">💡</li>
+            <li class="second">💡</li>
+            <li class="third ">💡</li>
+        </ul>
+    </div>
     <div class="best-time">best time is: <span>0:0:0.000</span> </div>
     <div class="btn">
         <button class="first" data-level="beginner" onclick="setLevel(this)">beginner</button>

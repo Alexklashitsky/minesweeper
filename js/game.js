@@ -1,12 +1,11 @@
 
 var gInerval
 var gElapsedTime
-var gIsclockIsOn = false
 var gBoard = []
 var glives = 3
 var gElmodal = document.querySelector('.modal')
 var elCells = []
-var gBestTIME = Infinity
+var gBestTime = Infinity
 var gElBestTime = document.querySelector('.best-time span')
 var gLevel = {
     SIZE: 4,
@@ -21,6 +20,9 @@ var gGame = {
 var gMines = gLevel.MINES
 var gClickCunter = 0
 var gEllives = document.querySelector('.lives span')
+var gElapsedTime
+var gHints = 3
+var gIsHindsModOn = false
 
 function initGame() {
     gEllives.innerText = glives
@@ -52,12 +54,16 @@ function renderBoard(board) {
         elBoard.innerHTML = strHTML;
 
     }
-
 }
-
 function cellClicked(elCell, i, j) {
+    if (gIsHindsModOn) {
+        console.log('hind mode');
+        showHints(i, j, gBoard)
+
+        gIsHindsModOn = false
+        return
+    }
     gClickCunter++
-    console.log('gClickCunter:', gClickCunter);
 
     if (gClickCunter === 1) {
         elCell.classList.remove('invisible')
@@ -66,7 +72,6 @@ function cellClicked(elCell, i, j) {
     }
     if (gBoard[i][j].isMarked) cellMarked(elCell)
 
-    // cellMarked(elCell)
     if (elCell.classList.contains('isMine')) {
         console.log('boom!');
         elCell.innerText = '💣'
@@ -74,7 +79,7 @@ function cellClicked(elCell, i, j) {
         gEllives.innerText = glives
     }
     if (glives === 0) endGame()
-    if (gBoard[i][j].minesAroundCount === 0) expandShown(i, j, gBoard, elCell)
+    if ((gBoard[i][j].minesAroundCount === 0) && (!elCell.classList.contains('isMine'))) expandShown(i, j, gBoard, elCell)
     gBoard[i][j].isShown = true
     elCell.classList.remove('invisible')
     if (victoryCheck()) victory()
@@ -82,10 +87,11 @@ function cellClicked(elCell, i, j) {
 function cellMarked(elCell) {
     console.log('bla bla');
     elCell.classList.add('.invisible')
-    renderBoard(gBoard)
+    // renderBoard(gBoard)S
     rightClick()
 }
 function expandShown(cellI, cellJ, mat, elCell) {
+
     for (var i = cellI - 1; i <= cellI + 1; i++) {
         if (i < 0 || i > mat.length - 1) continue;
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
@@ -143,6 +149,8 @@ function endGame() {
     }
     clearInterval(gInerval)
     setEmoji('lose')
+    console.log('gElapsedTime:', gElapsedTime);
+
 
 }
 function isVisible(cell) {
@@ -150,6 +158,7 @@ function isVisible(cell) {
     else return
 }
 function rest() {
+    gHints = 3
     glives = 3
     gMines = gLevel.MINES
     gElmodal.innerText = ''
@@ -160,6 +169,16 @@ function rest() {
     clearInterval(gInerval)
     var elClock = document.querySelector('.timer')
     elClock.innerText = '00:00:000'
+    var elBeginnerBestTime = document.querySelector('.beginner span')
+    elBeginnerBestTime.innerText = "Let's Play!"
+    var elAdvanceBestTime = document.querySelector('.advance span')
+    elAdvanceBestTime.innerText = "Let's Play!"
+    var elExpertBestTime = document.querySelector('.expert span')
+    elExpertBestTime.innerText = "Let's Play!"
+    hintReset()
+
+
+
 }
 function rightClick() {
     const noContext = document.querySelectorAll('td');
@@ -199,7 +218,11 @@ function victory() {
     }
     clearInterval(gInerval)
     gElmodal.innerText = 'VICTORY!!!'
-    setEmoji('mod')
+    setEmoji('win')
+    getBestTime()
+    setLocalStorage()
+    // displayLocalStorage()
+
 }
 function isClicked() {
     placeRandomMins(gBoard, gLevel.MINES)
@@ -213,10 +236,6 @@ function timer() {
     startTime = Date.now();
     gInerval = setInterval(function printTime() {
         gElapsedTime = Date.now() - startTime;
-        if (gElapsedTime < gBestTIME) {
-            gBestTIME = gElapsedTime
-            gElBestTime.innerHTML = timeToString(gBestTIME)
-        }
         document.querySelector(".timer").innerHTML = timeToString(gElapsedTime);
     }, 10);
 }
@@ -235,6 +254,8 @@ function victoryCheck() {
 }
 function setLevel(btn) {
 
+    gBestTime = Infinity
+    gElBestTime.innerText = '0:0:0.000'
     var setLevel = btn.dataset.level
     if (setLevel === 'beginner') {
         gLevel.SIZE = 4
@@ -253,9 +274,107 @@ function setLevel(btn) {
     }
 }
 function setEmoji(mod) {
-    var strHTML = ''
     var emoji = document.querySelector('.setemoji')
     if (mod === 'start') emoji.innerHTML = '🙂'
     if (mod === 'win') emoji.innerHTML = '🤑'
     if (mod === 'lose') emoji.innerHTML = '💀'
+}
+function getBestTime() {
+    if (gElapsedTime < gBestTime) {
+        gBestTime = gElapsedTime
+        gElBestTime.innerHTML = timeToString(gBestTime)
+    }
+
+    gElBestTime.innerHTML = timeToString(gBestTime)
+}
+function setLocalStorage() {
+    if (gLevel.SIZE === 4) {
+        localStorage.setItem('beginner', timeToString(gBestTime))
+        var elBeginnerBestTime = document.querySelector('.beginner span')
+        elBeginnerBestTime.innerText = localStorage.getItem('beginner')
+    }
+    if (gLevel.SIZE === 8) {
+        localStorage.setItem('advance', timeToString(gBestTime))
+        var elAdvaceBestTime = document.querySelector('.advance span')
+        elAdvaceBestTime.innerText = localStorage.getItem('advance')
+
+    }
+
+    if (gLevel.SIZE === 12) {
+        localStorage.setItem('expert', timeToString(gBestTime))
+        var elExpertBestTime = document.querySelector('.expert span')
+        elExpertBestTime.innerText = localStorage.getItem('expert')
+    }
+}
+function hints() {
+    if (gHints > 0) {
+        console.log('hints');
+        if (gHints === 1) {
+            var elFirstHint = document.querySelector('.first')
+            elFirstHint.style.display = 'none'
+        }
+        if (gHints === 2) {
+            var elSecondHint = document.querySelector('.second')
+            elSecondHint.style.display = 'none'
+        }
+        if (gHints === 3) {
+            var elThirdHint = document.querySelector('.third')
+            elThirdHint.style.display = 'none'
+        }
+
+    }
+    gHints--
+    gIsHindsModOn = true
+}
+function hintReset() {
+    var elFirstHint = document.querySelector('.first')
+    elFirstHint.style.display = 'inline'
+    var elSecondHint = document.querySelector('.second')
+    elSecondHint.style.display = 'inline'
+    var elThirdHint = document.querySelector('.third')
+    elThirdHint.style.display = 'inline'
+    gHints = 3
+
+
+}
+function showHints(cellI, cellJ, mat) {
+
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i > mat.length - 1) continue;
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (j < 0 || j > mat[i].length - 1) continue;
+            if (i === cellI && j === cellJ) continue;
+
+
+            mat[i][j].isShown = true
+            renderBoard(gBoard)
+
+            if (mat[i][j].isMine) renderCell(i, j, '💣')
+        }
+    }
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i > mat.length - 1) continue;
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (j < 0 || j > mat[i].length - 1) continue;
+            if (i === cellI && j === cellJ) continue;
+            if (mat[i][j].isMine) renderCell(i, j, '💣')
+
+        }
+    }
+
+    setTimeout(function hideHint() {
+        for (var i = cellI - 1; i <= cellI + 1; i++) {
+            if (i < 0 || i > mat.length - 1) continue;
+            for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+                if (j < 0 || j > mat[i].length - 1) continue;
+                if (i === cellI && j === cellJ) continue;
+
+
+                mat[i][j].isShown = false
+                renderBoard(gBoard)
+            }
+        }
+
+    }, 1000)
+
 }

@@ -15,34 +15,12 @@ function createBoard(size) {
         }
     }
 
-    // placeRandomMins(board, gLevel.MINES)
 
 
     return board;
 }
 
-// function printMat(mat, selector) {
-//     var strHTML = '<table border="1"><tbody>';
-//     for (var i = 0; i < mat.length; i++) {
-//         strHTML += '<tr>';
 
-//         for (var j = 0; j < mat[0].length; j++) {
-//             var cell = mat[i][j];
-//             var className = 'cell cell' + i + '-' + j;
-//             if (mat[i][j].isMine) {
-//                 strHTML += '<td class="' + 'isMine' + '">  </td>'
-//             } else
-//                 strHTML += '<td class="' + className + '">  </td>'
-
-//         }
-//         strHTML += '</tr>'
-//     }
-//     strHTML += '</tbody></table>';
-//     console.log('strHTML:', strHTML);
-
-//     var elContainer = document.querySelector(selector);
-//     elContainer.innerHTML = strHTML;
-// }
 
 
 
@@ -169,7 +147,7 @@ function renderCell(cellI, cellJ, value) {
     var elCell = document.querySelector(`[data-i="${cellI}"][data-j="${cellJ}"]`)
     console.log('elCell:', elCell);
     elCell.innerText = value
-    elCell.classList.remove('occupied')
+
 
 }
 
