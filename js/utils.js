@@ -148,8 +148,8 @@ function renderCell(cellI, cellJ, value) {
     console.log('elCell:', elCell);
     elCell.innerText = value
 
-
 }
+
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
