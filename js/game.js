@@ -87,7 +87,7 @@ function cellClicked(elCell, i, j) {
 function cellMarked(elCell) {
     console.log('bla bla');
     elCell.classList.add('.invisible')
-    // renderBoard(gBoard)S
+    renderBoard(gBoard)
     rightClick()
 }
 function expandShown(cellI, cellJ, mat, elCell) {
@@ -99,15 +99,17 @@ function expandShown(cellI, cellJ, mat, elCell) {
             if (i === cellI && j === cellJ) continue;
             // console.log(i, j);
             // console.log(mat[i][j]);
-            if (mat[i][j].isMine === false) {
+            var currCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
+            if (!currCell.classList.contains('isMine')) {
                 console.log('nooo');
-                elCell.classList.remove('invisible')
-                mat[i][j].isShown = true
-                renderBoard(gBoard)
+                c.classList.remove('invisible')
+                gBoard[i][j].isShown = true
+                // renderBoard(gBoard)
                 rightClick()
             }
         }
-    }
+    } renderBoard(gBoard)
+
 }
 function setMinesNegsCount(gBoard) {
     for (var i = 0; i < gBoard.length; i++) {

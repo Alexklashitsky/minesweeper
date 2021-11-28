@@ -34,7 +34,7 @@ td {
 .isMine
 
 {
-    background-color: brown;
+    background-color: brown; */
 
   }
 
@@ -84,15 +84,6 @@ border-radius: 10%;
 padding: 50px;  
 }
 
-.first:hover{
-  background-color: #1D5902;
-}
-.middle:hover{
-  background-color: #1D5902;
-}
-.last:hover{
-  background-color: #1D5902;
-}
 .timer{
   margin-left: auto;
   margin-right: auto;
@@ -132,11 +123,15 @@ ul{
   display: inline;
   position: absolute;
   right: 70%;
-  bottom: 80%;
+  bottom: 70%;
   width: 200px;
   height: 120px;
 }
 
-.hints ul{
-  padding-right: 80%;
+
+.page-header{
+  text-align: center;
+}
+.footer{
+  text-align: center;
 }

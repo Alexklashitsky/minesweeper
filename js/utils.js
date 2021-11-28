@@ -10,19 +10,11 @@ function createBoard(size) {
                 isMine: false,
                 isMarked: false
             }
-
-
         }
     }
 
-
-
     return board;
 }
-
-
-
-
 
 function copyMat(mat) {
     var newMat = []
@@ -148,8 +140,8 @@ function renderCell(cellI, cellJ, value) {
     console.log('elCell:', elCell);
     elCell.innerText = value
 
-
 }
+
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
